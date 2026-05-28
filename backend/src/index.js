@@ -1,0 +1,21 @@
+import express from 'express'
+import cors from 'cors'
+import sessionRoutes from './routes/session.js'
+import uploadRoutes from './routes/upload.js'
+import downloadRoutes from './routes/download.js'
+
+const app = express()
+const PORT = process.env.PORT || 3001
+
+app.use(cors())
+app.use(express.json())
+
+app.use('/api/session', sessionRoutes)
+app.use('/api/upload', uploadRoutes)
+app.use('/api/download', downloadRoutes)
+
+app.get('/health', (req, res) => res.json({ ok: true }))
+
+app.listen(PORT, () => {
+  console.log(`Servidor a correr em http://localhost:${PORT}`)
+})
