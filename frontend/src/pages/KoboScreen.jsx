@@ -1,3 +1,5 @@
+const API = import.meta.env.VITE_API_URL || ''
+
 import { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 
@@ -8,7 +10,7 @@ export default function KoboScreen() {
   const pollRef = useRef(null)
 
   useEffect(() => {
-    axios.post('/api/session/create')
+    axios.post(`${API}/api/session/create`)
       .then(res => setSession(res.data))
       .catch(() => setError('Não foi possível ligar ao servidor.'))
   }, [])
@@ -17,7 +19,7 @@ export default function KoboScreen() {
     if (!session) return
     pollRef.current = setInterval(async () => {
       try {
-        const res = await axios.get(`/api/download/${session.code}`)
+        const res = await axios.get(`${API}/api/download/${session.code}`)
         setFiles(res.data.files)
       } catch {}
     }, 3000)
@@ -48,7 +50,7 @@ export default function KoboScreen() {
         <div style={s.fileList}>
           <p style={s.fileListTitle}>Prontos a descarregar</p>
           {files.map(file => (
-            <a key={file.id} href={file.downloadUrl} style={s.fileItem} download>
+            <a key={file.id} href={`${API}${file.downloadUrl}`} style={s.fileItem} download>
               <span style={s.fileName}>{file.name}</span>
               <span style={s.fileSize}>{formatSize(file.size)}</span>
             </a>

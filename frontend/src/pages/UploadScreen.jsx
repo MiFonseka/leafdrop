@@ -1,3 +1,5 @@
+const API = import.meta.env.VITE_API_URL || ''
+
 import { useState, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
@@ -33,7 +35,7 @@ export default function UploadScreen() {
     formData.append('cropPdf', options.cropPdf)
     formData.append('convertMobi', options.convertMobi)
     try {
-      await axios.post(`/api/upload/${code}`, formData)
+      await axios.post(`${API}/api/upload/${code}`, formData)
       setStatus('done')
       setFiles([])
     } catch {
