@@ -11,8 +11,9 @@ export default function App() {
   const [user, setUser] = useState(undefined)
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user || null)
+  // Processa o token do redirect do Google
+    supabase.auth.getSession().then(({ data }) => {
+      setUser(data.session?.user || null)
     })
 
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
