@@ -8,7 +8,7 @@ import { processFile } from '../services/converter.js'
 const router = Router()
 
 const ALLOWED = ['.epub', '.pdf', '.mobi', '.cbz', '.cbr', '.txt']
-const MAX_SIZE = 50 * 1024 * 1024 // 50 MB
+const MAX_SIZE = 200 * 1024 * 1024 // 200 MB
 const MAX_FILES = 5
 
 const storage = multer.diskStorage({
@@ -61,7 +61,7 @@ router.post('/:code', upload.array('files', MAX_FILES), async (req, res) => {
 })
 
 router.use((err, req, res, next) => {
-  if (err.code === 'LIMIT_FILE_SIZE') return res.status(400).json({ error: 'Ficheiro demasiado grande (máx. 50 MB)' })
+  if (err.code === 'LIMIT_FILE_SIZE') return res.status(400).json({ error: 'Ficheiro demasiado grande (máx. 200 MB)' })
   if (err.code === 'LIMIT_FILE_COUNT') return res.status(400).json({ error: 'Máximo de 5 ficheiros' })
   res.status(400).json({ error: err.message })
 })
