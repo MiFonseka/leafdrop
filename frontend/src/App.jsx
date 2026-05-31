@@ -1,3 +1,5 @@
+console.log('URL:', import.meta.env.VITE_SUPABASE_URL)
+console.log('KEY:', import.meta.env.VITE_SUPABASE_ANON_KEY?.slice(0, 20))
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { supabase } from './lib/supabase.js'
