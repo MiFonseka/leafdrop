@@ -45,9 +45,7 @@ router.post('/:code', upload.array('files', MAX_FILES), async (req, res) => {
   }
 
   // userId opcional — só se o utilizador estiver autenticado
-  const userId = req.body.userId || null
-  console.log('userId recebido:', userId)
-  
+  const userId = req.body.userId || null  
 
   const processed = []
   for (const file of req.files) {
@@ -72,7 +70,6 @@ router.post('/:code', upload.array('files', MAX_FILES), async (req, res) => {
     filesize: f.size,
   }))
   const { error } = await supabase.from('send_history').insert(historyRows)
-  console.log('histórico guardado:', error ? error.message : 'ok')
 }
 
   res.json({ ok: true, uploaded: processed.length })
