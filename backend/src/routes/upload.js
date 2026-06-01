@@ -46,6 +46,7 @@ router.post('/:code', upload.array('files', MAX_FILES), async (req, res) => {
 
   // userId opcional — só se o utilizador estiver autenticado
   const userId = req.body.userId || null
+  console.log('userId recebido:', userId)
 
   const processed = []
   for (const file of req.files) {
