@@ -30,6 +30,11 @@ export default function ProfileScreen() {
     setLoading(false)
   }
 
+  async function deleteDevice(id) {
+    await supabase.from('devices').delete().eq('id', id)
+    setDevices(prev => prev.filter(d => d.id !== id))
+  }
+
   async function logout() {
     await supabase.auth.signOut()
     navigate('/')
@@ -58,6 +63,7 @@ export default function ProfileScreen() {
                 <span style={s.deviceIcon}>{d.type === 'kindle' ? '📖' : '📚'}</span>
                 <span style={s.rowText}>{d.name}</span>
                 <span style={s.rowBadge}>{d.type}</span>
+                <button style={s.deleteBtn} onClick={() => deleteDevice(d.id)}>✕</button>
               </div>
             ))
           )}
@@ -96,5 +102,6 @@ const s = {
   rowText: { flex: 1, fontSize: 13, color: 'var(--text)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' },
   rowBadge: { fontSize: 10, fontWeight: 600, background: 'var(--bg3)', color: 'var(--text2)', borderRadius: 4, padding: '2px 6px', textTransform: 'uppercase' },
   rowDate: { fontSize: 11, color: 'var(--text3)', whiteSpace: 'nowrap' },
+  deleteBtn: { background: 'none', border: 'none', color: 'var(--text3)', cursor: 'pointer', fontSize: 14, padding: '0 4px' },
   homeBtn: { width: '100%', padding: '12px', background: 'none', border: '1px solid var(--border)', borderRadius: 12, fontSize: 14, color: 'var(--text2)', cursor: 'pointer', marginTop: 8 },
 }
