@@ -10,7 +10,6 @@ router.get('/:code', (req, res) => {
   if (!session) {
     return res.status(404).json({ error: 'Sessão não encontrada ou expirada' })
   }
-
   res.json({
     files: session.files.map(f => ({
       id: f.id,
@@ -40,5 +39,7 @@ router.get('/:code/:fileId', (req, res) => {
 
   const encodedName = encodeURIComponent(file.originalName)
   res.setHeader('Content-Disposition', `attachment; filename="${file.originalName.replace(/[^\x00-\x7F]/g, '_')}"; filename*=UTF-8''${encodedName}`)
+  res.sendFile(absolutePath)
+})
 
 export default router
