@@ -38,6 +38,17 @@ export default function LoginScreen() {
     }
   }
 
+  async function handleForgotPassword() {
+    if (!email) { setError('Introduz o teu email primeiro.'); return }
+    setLoading(true)
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin + '/auth/callback',
+    })
+    if (error) { setError('Erro ao enviar email. Tenta novamente.') }
+    else { setSuccess('Email enviado! Verifica a tua caixa de entrada.') }
+    setLoading(false)
+  }
+
   return (
     <div className="page-center">
       <div className="card">
@@ -70,6 +81,12 @@ export default function LoginScreen() {
           value={password}
           onChange={e => { setPassword(e.target.value); setError(null) }}
         />
+
+        {mode === 'login' && (
+          <p style={s.forgotPassword} onClick={handleForgotPassword}>
+            Esqueci-me da password
+          </p>
+        )}
 
         {error && <p style={s.error}>{error}</p>}
         {success && <p style={s.successMsg}>{success}</p>}
@@ -105,6 +122,7 @@ const s = {
   divider: { display: 'flex', alignItems: 'center', gap: 10, margin: '4px 0 16px' },
   dividerText: { fontSize: 12, color: 'var(--text3)', whiteSpace: 'nowrap', flex: 1, textAlign: 'center', borderTop: '1px solid var(--border)', paddingTop: 12 },
   input: { width: '100%', padding: '12px', background: 'var(--bg)', border: '1.5px solid var(--border)', borderRadius: 10, fontSize: 14, color: 'var(--text)', outline: 'none', marginBottom: 10, boxSizing: 'border-box' },
+  forgotPassword: { fontSize: 12, color: 'var(--text3)', cursor: 'pointer', marginBottom: 12, textAlign: 'right', width: '100%' },
   error: { fontSize: 13, color: '#e05252', marginBottom: 10, textAlign: 'center' },
   successMsg: { fontSize: 13, color: 'var(--accent)', marginBottom: 10, textAlign: 'center', lineHeight: 1.5 },
   btn: { width: '100%', padding: '14px', background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 12, fontSize: 15, fontWeight: 600, cursor: 'pointer', marginBottom: 16 },
