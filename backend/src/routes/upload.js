@@ -4,11 +4,12 @@ import path from 'path'
 import { nanoid } from 'nanoid'
 import { getSession, addFilesToSession } from '../services/sessionStore.js'
 import { processFile } from '../services/converter.js'
+import { supabase } from '../services/supabase.js'
 
 const router = Router()
 
 const ALLOWED = ['.epub', '.pdf', '.mobi', '.cbz', '.cbr', '.txt']
-const MAX_SIZE = 200 * 1024 * 1024 // 200 MB
+const MAX_SIZE = 200 * 1024 * 1024
 const MAX_FILES = 5
 
 const storage = multer.diskStorage({
@@ -43,6 +44,9 @@ router.post('/:code', upload.array('files', MAX_FILES), async (req, res) => {
     convertMobi: req.body.convertMobi === 'true',
   }
 
+  // userId opcional — só se o utilizador estiver autenticado
+  const userId = req.body.userId || null
+
   const processed = []
   for (const file of req.files) {
     const finalPath = await processFile(file.path, options)
@@ -57,6 +61,17 @@ router.post('/:code', upload.array('files', MAX_FILES), async (req, res) => {
   }
 
   addFilesToSession(req.params.code, processed)
+
+  // Guarda no histórico se o utilizador estiver autenticado
+  if (userId) {
+    const historyRows = processed.map(f => ({
+      user_id: userId,
+      filename: f.originalName,
+      filesize: f.size,
+    }))
+    await supabase.from('send_history').insert(historyRows)
+  }
+
   res.json({ ok: true, uploaded: processed.length })
 })
 
