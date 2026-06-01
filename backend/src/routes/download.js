@@ -38,9 +38,7 @@ router.get('/:code/:fileId', (req, res) => {
     return res.status(404).json({ error: 'Ficheiro já não existe no servidor' })
   }
 
-  const encodedName = encodeURIComponent(file.originalName).replace(/'/g, "%27").replace(/\(/g, "%28").replace(/\)/g, "%29")
-  res.setHeader('Content-Disposition', `attachment; filename*=UTF-8''${encodedName}`)
-  res.sendFile(absolutePath)
-  })
+  const encodedName = encodeURIComponent(file.originalName)
+  res.setHeader('Content-Disposition', `attachment; filename="${file.originalName.replace(/[^\x00-\x7F]/g, '_')}"; filename*=UTF-8''${encodedName}`)
 
 export default router
