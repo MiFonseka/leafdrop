@@ -78,6 +78,16 @@ export default function HomeScreen({ user }) {
         <p style={s.hint}>
           Abre <strong>leafdrop-backend.onrender.com/api/session/kobo</strong> no browser do teu Kobo para obteres o código
         </p>
+
+        
+          href="https://buymeacoffee.com/leafdrop"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={s.coffeeBtn}
+        >
+          ☕ Compra-me um café
+        </a>
+
         <p style={s.privacy}>
           <a href="/privacy" style={s.privacyLink}>Política de Privacidade</a>
         </p>
@@ -98,7 +108,8 @@ const s = {
   error: { fontSize: 13, color: '#e05252', marginBottom: 16, textAlign: 'center' },
   btn: { width: '100%', padding: '14px', background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 12, fontSize: 15, fontWeight: 600, cursor: 'pointer', marginBottom: 24, transition: 'opacity .15s' },
   btnDisabled: { opacity: 0.35, cursor: 'not-allowed' },
-  hint: { fontSize: 12, color: 'var(--text3)', lineHeight: 1.6, textAlign: 'center' },
+  hint: { fontSize: 12, color: 'var(--text3)', lineHeight: 1.6, textAlign: 'center', marginBottom: 16 },
+  coffeeBtn: { display: 'block', textAlign: 'center', padding: '10px', background: '#FFDD00', color: '#000', borderRadius: 10, fontSize: 14, fontWeight: 600, textDecoration: 'none', marginTop: 8 },
   privacy: { fontSize: 11, color: 'var(--text3)', textAlign: 'center', marginTop: 16 },
   privacyLink: { color: 'var(--text3)', textDecoration: 'none' },
 }
