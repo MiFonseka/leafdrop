@@ -7,6 +7,7 @@ import UploadScreen from './pages/UploadScreen.jsx'
 import LoginScreen from './pages/LoginScreen.jsx'
 import ProfileScreen from './pages/ProfileScreen.jsx'
 import AuthCallback from './pages/AuthCallback.jsx'
+import NotFoundScreen from './pages/NotFoundScreen.jsx'
 
 export default function App() {
   const [user, setUser] = useState(undefined)
@@ -34,6 +35,7 @@ export default function App() {
       <Route path="/login" element={user ? <Navigate to="/" /> : <LoginScreen />} />
       <Route path="/profile" element={user ? <ProfileScreen /> : <Navigate to="/login" />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
+      <Route path="*" element={<NotFoundScreen />} />
     </Routes>
   )
 }
