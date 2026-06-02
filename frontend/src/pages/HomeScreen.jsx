@@ -77,16 +77,7 @@ export default function HomeScreen({ user }) {
         <p style={s.hint}>
           Abre <strong>leafdrop-backend.onrender.com/api/session/kobo</strong> no browser do teu Kobo para obteres o código
         </p>
-
-        
-          href="https://buymeacoffee.com/leafdrop"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ display: 'block', textAlign: 'center', padding: '10px', backgroundColor: '#FFDD00', color: '#000', borderRadius: '10px', fontSize: '14px', fontWeight: '600', textDecoration: 'none', marginTop: '8px' }}
-        >
-          ☕ Compra-me um café
-        </a>
-
+        <a href="https://buymeacoffee.com/leafdrop" target="_blank" rel="noopener noreferrer" style={{display:'block',textAlign:'center',padding:'10px',backgroundColor:'#FFDD00',color:'#000',borderRadius:'10px',fontSize:'14px',fontWeight:'600',textDecoration:'none',marginTop:'8px'}}>☕ Compra-me um café</a>
         <p style={s.privacy}>
           <a href="/privacy" style={s.privacyLink}>Política de Privacidade</a>
         </p>
