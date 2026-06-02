@@ -84,7 +84,7 @@ export default function HomeScreen({ user }) {
           target="_blank"
           rel="noopener noreferrer"
           style={s.coffeeBtn}
-        >
+        <a>
           ☕ Compra-me um café
         </a>
 
