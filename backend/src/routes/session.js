@@ -56,7 +56,26 @@ router.get('/kobo', async (req, res) => {
     ${code.split('').map(c => `<span class="letter">${c}</span>`).join('')}
   </div>
   <div id="files"><p><small>A espera de ficheiros...</small></p></div>
+  <div id="timer" style="font-size:12px;color:#999;margin-top:8px;"></div>
+  <div id="files"><p><small>À espera de ficheiros...</small></p></div>
   <script>
+    var seconds = 600;
+    var timerEl = document.getElementById('timer');
+    
+    function updateTimer() {
+      var m = Math.floor(seconds / 60);
+      var s = seconds % 60;
+      timerEl.textContent = '⏱ Sessão expira em ' + m + ':' + (s < 10 ? '0' : '') + s;
+      if (seconds <= 0) {
+        timerEl.textContent = '⚠ Sessão expirada. Recarrega a página.';
+        timerEl.style.color = '#c00';
+        return;
+      }
+      seconds--;
+      setTimeout(updateTimer, 1000);
+    }
+    updateTimer();
+
     setInterval(function() {
       var xhr = new XMLHttpRequest();
       xhr.open('GET', '/api/download/${code}');
