@@ -19,7 +19,6 @@ export default function HomeScreen({ user }) {
     <div className="page-center">
       <div className="card">
 
-        {/* Header com perfil */}
         <div style={s.topBar}>
           <span style={s.leaf}>🍃</span>
           {user ? (
@@ -83,14 +82,15 @@ export default function HomeScreen({ user }) {
           href="https://buymeacoffee.com/leafdrop"
           target="_blank"
           rel="noopener noreferrer"
-          style={s.coffeeBtn}
-        <a>
+          style={{ display: 'block', textAlign: 'center', padding: '10px', backgroundColor: '#FFDD00', color: '#000', borderRadius: '10px', fontSize: '14px', fontWeight: '600', textDecoration: 'none', marginTop: '8px' }}
+        >
           ☕ Compra-me um café
         </a>
 
         <p style={s.privacy}>
           <a href="/privacy" style={s.privacyLink}>Política de Privacidade</a>
         </p>
+
       </div>
     </div>
   )
@@ -109,7 +109,6 @@ const s = {
   btn: { width: '100%', padding: '14px', background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 12, fontSize: 15, fontWeight: 600, cursor: 'pointer', marginBottom: 24, transition: 'opacity .15s' },
   btnDisabled: { opacity: 0.35, cursor: 'not-allowed' },
   hint: { fontSize: 12, color: 'var(--text3)', lineHeight: 1.6, textAlign: 'center', marginBottom: 16 },
-  coffeeBtn: { display: 'block', textAlign: 'center', padding: '10px', background: '#FFDD00', color: '#000', borderRadius: 10, fontSize: 14, fontWeight: 600, textDecoration: 'none', marginTop: 8 },
   privacy: { fontSize: 11, color: 'var(--text3)', textAlign: 'center', marginTop: 16 },
   privacyLink: { color: 'var(--text3)', textDecoration: 'none' },
 }
